@@ -1,0 +1,142 @@
+[
+ {
+  "section": "Flash Facts Radiation Safety",
+  "page": 2,
+  "q": "1 rem equals how many mSv?",
+  "options": {
+   "A": "10 mSv",
+   "B": "0.1 mSv",
+   "C": "100 mSv",
+   "D": "1 mSv"
+  },
+  "answer": "A",
+  "explanation": "1 rem = 1000 mrem = 10 mSv = 0.01 Sv.",
+  "id": 1
+ },
+ {
+  "section": "Flash Facts Radiation Safety",
+  "page": 2,
+  "q": "1 rem equals how many mrem?",
+  "options": {
+   "A": "1000 mrem",
+   "B": "10 mrem",
+   "C": "100 mrem",
+   "D": "10,000 mrem"
+  },
+  "answer": "A",
+  "explanation": "1 rem = 1000 mrem.",
+  "id": 2
+ },
+ {
+  "section": "Flash Facts Radiation Safety",
+  "page": 2,
+  "q": "1 rem equals how many sieverts?",
+  "options": {
+   "A": "0.1 Sv",
+   "B": "0.01 Sv",
+   "C": "0.001 Sv",
+   "D": "1 Sv"
+  },
+  "answer": "B",
+  "explanation": "1 rem = 0.01 Sv.",
+  "id": 3
+ },
+ {
+  "section": "Flash Facts Radiation Safety",
+  "page": 2,
+  "q": "What is the annual public exposure limit?",
+  "options": {
+   "A": "500 mrem/year",
+   "B": "1 rem/year (10 mSv/year)",
+   "C": "100 mrem/year (1 mSv/year)",
+   "D": "5 rem/year"
+  },
+  "answer": "C",
+  "explanation": "Public exposure: 100 mrem/year = 0.1 rem/year = 1 mSv/year.",
+  "id": 4
+ },
+ {
+  "section": "Flash Facts Radiation Safety",
+  "page": 2,
+  "q": "What is the annual occupational exposure limit?",
+  "options": {
+   "A": "15 rem/year",
+   "B": "0.1 rem/year (1 mSv/year)",
+   "C": "0.5 rem/year (5 mSv/year)",
+   "D": "5 rem/year (50 mSv/year)"
+  },
+  "answer": "D",
+  "explanation": "Occupational exposure: 5,000 mrem/year = 5 rem = 50 mSv = 0.05 Sv/year.",
+  "id": 5
+ },
+ {
+  "section": "Flash Facts Radiation Safety",
+  "page": 2,
+  "q": "What is the pregnancy exposure limit from conception to end of pregnancy?",
+  "options": {
+   "A": "0.1 rem (1 mSv)",
+   "B": "1 rem (10 mSv)",
+   "C": "5 rem (50 mSv)",
+   "D": "0.5 rem (500 mrem, 5 mSv)"
+  },
+  "answer": "D",
+  "explanation": "Pregnancy exposure: 0.5 rem = 500 mrem = 5 mSv (10 CFR Part 35.1208).",
+  "id": 6
+ },
+ {
+  "section": "Flash Facts Radiation Safety",
+  "page": 2,
+  "q": "Which CFR section is cited for the pregnancy exposure limit?",
+  "options": {
+   "A": "10 CFR Part 35.75",
+   "B": "10 CFR Part 20",
+   "C": "10 CFR Part 35.3045",
+   "D": "10 CFR Part 35.1208"
+  },
+  "answer": "D",
+  "explanation": "Pregnancy exposure limit is cited as 10 CFR Part 35.1208.",
+  "id": 7
+ },
+ {
+  "section": "Flash Facts Radiation Safety",
+  "page": 2,
+  "q": "A radiation area is defined as a dose rate greater than what, at 30 cm?",
+  "options": {
+   "A": "5 mrem/h",
+   "B": "1 mrem/h",
+   "C": "0.1 rem/h",
+   "D": "50 mrem/h"
+  },
+  "answer": "A",
+  "explanation": "Radiation area exposure: >5 mrem/h at 30 cm.",
+  "id": 8
+ },
+ {
+  "section": "Flash Facts Radiation Safety",
+  "page": 2,
+  "q": "A high radiation area is defined as a dose rate greater than what, at 30 cm?",
+  "options": {
+   "A": "5 mrem/h",
+   "B": "1 rem/h",
+   "C": "0.1 rem/h",
+   "D": "2 mrem/h"
+  },
+  "answer": "C",
+  "explanation": "High radiation area: >0.1 rem/h at 30 cm.",
+  "id": 9
+ },
+ {
+  "section": "Flash Facts Radiation Safety",
+  "page": 2,
+  "q": "What color is the door sign for a high radiation area?",
+  "options": {
+   "A": "White",
+   "B": "Red",
+   "C": "Yellow",
+   "D": "Blue"
+  },
+  "answer": "C",
+  "explanation": "High radiation area door sign is yellow and requires an RWP for entry.",
+  "id": 10
+ }
+]
