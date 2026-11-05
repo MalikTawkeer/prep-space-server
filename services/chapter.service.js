@@ -1,5 +1,6 @@
 const Chapter = require('../models/chapter.model');
 const Subject = require('../models/subject.model');
+const Question = require('../models/question.model');
 
 class ChapterService {
   async getChapters(filter = {}) {
@@ -61,13 +62,23 @@ class ChapterService {
   }
 
   async deleteChapter(id) {
-    const chapter = await Chapter.findByIdAndDelete(id);
+    const chapter = await Chapter.findById(id);
     if (!chapter) {
       const error = new Error('Chapter not found');
       error.statusCode = 404;
       throw error;
     }
-    return chapter;
+
+    // Cascade delete questions in this chapter
+    const deletedQuestions = await Question.deleteMany({ chapterId: id });
+
+    // Delete chapter
+    await Chapter.findByIdAndDelete(id);
+
+    return {
+      chapter,
+      deletedQuestionsCount: deletedQuestions.deletedCount || 0,
+    };
   }
 }
 

@@ -1,4 +1,6 @@
 const Subject = require('../models/subject.model');
+const Chapter = require('../models/chapter.model');
+const Question = require('../models/question.model');
 
 class SubjectService {
   async getSubjects(filter = {}) {
@@ -43,13 +45,36 @@ class SubjectService {
   }
 
   async deleteSubject(id) {
-    const subject = await Subject.findByIdAndDelete(id);
+    const subject = await Subject.findById(id);
     if (!subject) {
       const error = new Error('Subject not found');
       error.statusCode = 404;
       throw error;
     }
-    return subject;
+
+    // Find all chapters under this subject
+    const chapters = await Chapter.find({ subjectId: id });
+    const chapterIds = chapters.map((c) => c._id);
+
+    // Cascade delete all questions under this subject or its chapters
+    const deletedQuestions = await Question.deleteMany({
+      $or: [
+        { subjectId: id },
+        { chapterId: { $in: chapterIds } },
+      ],
+    });
+
+    // Cascade delete all chapters under this subject
+    const deletedChapters = await Chapter.deleteMany({ subjectId: id });
+
+    // Finally delete the subject
+    await Subject.findByIdAndDelete(id);
+
+    return {
+      subject,
+      deletedChaptersCount: deletedChapters.deletedCount || 0,
+      deletedQuestionsCount: deletedQuestions.deletedCount || 0,
+    };
   }
 }
 
