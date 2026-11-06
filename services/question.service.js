@@ -63,7 +63,48 @@ class QuestionService {
       createdBy: userId || null,
     }));
 
-    const inserted = await Question.insertMany(docsToInsert, { ordered: false });
+    // Ensure no stale unique indexes on questions collection cause E11000 duplicate key errors
+    try {
+      const existingIndexes = await Question.collection.indexes();
+      for (const idx of existingIndexes) {
+        if (idx.name !== '_id_' && idx.unique) {
+          console.log(`[QuestionService] Auto-dropping stale unique index '${idx.name}' on questions collection.`);
+          await Question.collection.dropIndex(idx.name);
+        }
+      }
+    } catch (idxErr) {
+      // Ignore if index doesn't exist
+    }
+
+    let inserted = [];
+    try {
+      inserted = await Question.insertMany(docsToInsert, { ordered: false });
+    } catch (insertError) {
+      // If some documents were successfully inserted in unordered bulk write
+      if (insertError.insertedDocs && insertError.insertedDocs.length > 0) {
+        inserted = insertError.insertedDocs;
+      } else if (insertError.code === 11000) {
+        // Stale unique index or collision
+        try {
+          // Attempt to drop any unique index and retry insertion once
+          const existingIndexes = await Question.collection.indexes();
+          for (const idx of existingIndexes) {
+            if (idx.name !== '_id_' && idx.unique) {
+              await Question.collection.dropIndex(idx.name);
+            }
+          }
+          inserted = await Question.insertMany(docsToInsert, { ordered: false });
+        } catch (retryError) {
+          if (retryError.insertedDocs && retryError.insertedDocs.length > 0) {
+            inserted = retryError.insertedDocs;
+          } else {
+            throw retryError;
+          }
+        }
+      } else {
+        throw insertError;
+      }
+    }
 
     return {
       success: true,

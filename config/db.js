@@ -40,6 +40,25 @@ async function connectDB() {
     });
 
     console.log(`[Database] MongoDB Connected Successfully! Host: ${conn.connection.host}`);
+
+    // Clean up any stale unique indexes on collections that should NOT have unique constraints
+    try {
+      const collections = await conn.connection.db.listCollections().toArray();
+      const collNames = collections.map((c) => c.name);
+
+      if (collNames.includes('questions')) {
+        const qIndexes = await conn.connection.db.collection('questions').indexes();
+        for (const idx of qIndexes) {
+          if (idx.name !== '_id_' && idx.unique) {
+            console.log(`[Database] Dropping stale unique index on 'questions': ${idx.name}`);
+            await conn.connection.db.collection('questions').dropIndex(idx.name);
+          }
+        }
+      }
+    } catch (indexErr) {
+      console.warn(`[Database] Notice during index audit: ${indexErr.message}`);
+    }
+
     return conn;
   } catch (error) {
     console.error(`[Database] MongoDB Connection Error: ${error.message}`);
